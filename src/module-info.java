@@ -6,4 +6,5 @@
  *
  */
 module MascotaVirtual {
+	requires java.desktop;
 }
