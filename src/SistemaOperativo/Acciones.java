@@ -7,5 +7,7 @@ public interface Acciones {
 	public void MostrarFecha();
 	public String MostrarHora();
 	public void MostrarClima();
+	public boolean MensajeGoogle();
+	public void MensajeWord();
 
 }
