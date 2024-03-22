@@ -35,12 +35,18 @@ public class mascota implements Acciones{
 	}
 
 	@Override
-	public String MostrarHora() {  
+	public void MostrarHora() {  
         
-        LocalTime HoraActual = FechaYHora.toLocalTime();
+        /*LocalTime HoraActual = FechaYHora.toLocalTime();
         DateTimeFormatter Formato = DateTimeFormatter.ofPattern("HH:mm:ss");
         String Hora = HoraActual.format(Formato);
 		return Hora;
+		*/
+		try {
+		    Runtime.getRuntime().exec("cmd /c start ms-clock:");
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -79,16 +85,16 @@ public class mascota implements Acciones{
             Process process = Runtime.getRuntime().exec("Tasklist");
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
-            boolean chromeRunning = false;
+            boolean WordAbierto = false;
             while ((line = reader.readLine()) != null) {
-                // Verifica si el proceso de Chrome está en la lista de procesos
+                
                 if (line.contains("WINWORD.exe")) {
-                    chromeRunning = true;
+                	WordAbierto = true;
                     break;
                 }
             }
-            // Si Chrome está corriendo, muestra el mensaje
-            if (chromeRunning) {
+            // Si Word está corriendo, muestra el mensaje
+            if (WordAbierto) {
                 System.out.println("word abierto");
             }
         } catch (IOException e) {
