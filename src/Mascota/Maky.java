@@ -17,53 +17,96 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.accessibility.AccessibleContext;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
+import javax.swing.JRootPane;
 
 /**
  *
  * @author HP
  */
-public class Maky extends javax.swing.JFrame{
+public class Maky extends javax.swing.JFrame {
 
     /**
      * Creates new form Maky
      */
-    
     int x;
     int y;
     private mascota acciones = new mascota();
     private boolean GoogleAbierto = false;
-    private Google prueba;
-    private boolean RecienAbierto = true; 
+    private Consejos prueba;
+    private boolean RecienAbierto = true;
     private Timer tiempo = new Timer();
     private Ajustes ajuste = new Ajustes();
-    
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public mascota getAcciones() {
+        return acciones;
+    }
+
+    public void setAcciones(mascota acciones) {
+        this.acciones = acciones;
+    }
+
+    public boolean isGoogleAbierto() {
+        return GoogleAbierto;
+    }
+
+    public void setGoogleAbierto(boolean GoogleAbierto) {
+        this.GoogleAbierto = GoogleAbierto;
+    }
+
+    public Consejos getPrueba() {
+        return prueba;
+    }
+
+    public void setPrueba(Consejos prueba) {
+        this.prueba = prueba;
+    }
+
+    public boolean isRecienAbierto() {
+        return RecienAbierto;
+    }
+
+    public void setRecienAbierto(boolean RecienAbierto) {
+        this.RecienAbierto = RecienAbierto;
+    }
+
     public Maky() {
-        TimerTask tarea = new TimerTask() {
-	    @Override
-	    public void run() {
-	       GoogleAbierto = ConfirmarGoogleAbierto();
-	        if(GoogleAbierto && RecienAbierto) {
-		  prueba = new Google();
-		  prueba.confirmar();
-		  RecienAbierto = false;
-	        }
-	    }
-        };
-		
-					
-	tiempo.schedule(tarea, 0, 8000); // cada verifique cada x segundos si se abre word o no		
- 
         initComponents();
         setResizable(false);
         jButton1 = ajuste.resizableButton(jButton1, "src/Diseño/menu2.png");
         jButton2 = ajuste.resizableButton(jButton2, "src/Diseño/zzz.png");
         ajuste.TamañoPantalla(this, x, y);
+
+        TimerTask tarea;
+        tarea = new TimerTask() {
+            @Override
+            public void run() {
+                programaAbierto();
+            }
+
+        };
+        tiempo.schedule(tarea, 0, 2000); // cada verifique cada 8 segundos si se abre word o no	
     }
 
     /**
@@ -76,7 +119,6 @@ public class Maky extends javax.swing.JFrame{
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -95,9 +137,6 @@ public class Maky extends javax.swing.JFrame{
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Diseño/pandaf.jpg"))); // NOI18N
 
-        jLabel1.setText("<html><center>Bienvenido<center> <br> <center>¿cómo puedo ayudarte el día de hoy?<center><html>");
-        jLabel1.setToolTipText("");
-
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Diseño/menu.png"))); // NOI18N
         jButton1.setText("");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -105,7 +144,7 @@ public class Maky extends javax.swing.JFrame{
                 jButton1ActionPerformed(evt);
             }
         });
-        //jButton1.setContentAreaFilled(false);
+        jButton1.setContentAreaFilled(false);
         jButton1.setBorderPainted(false);
 
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -124,10 +163,9 @@ public class Maky extends javax.swing.JFrame{
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(147, 147, 147)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(81, Short.MAX_VALUE))
         );
@@ -135,15 +173,13 @@ public class Maky extends javax.swing.JFrame{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(109, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(82, 82, 82)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(8, 8, 8))
         );
 
@@ -157,39 +193,50 @@ public class Maky extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Funcionalidades fun = new Funcionalidades();
+        Funcionalidades fun = new Funcionalidades(this);
         fun.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
 
-        x = evt.getX();
-        y = evt.getY();       
+        setX(evt.getX());
+        setY(evt.getY());
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
         int xx = evt.getXOnScreen();
-            int yy = evt.getYOnScreen();
-            
-            setLocation(xx-x,yy-y);
+        int yy = evt.getYOnScreen();
+
+        setLocation(xx - x, yy - y);
     }//GEN-LAST:event_formMouseDragged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       dispose();
-       System.exit(0);
+        dispose();
+        System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    
     public boolean ConfirmarGoogleAbierto() {
-	if(acciones.MensajeGoogle()) {
-		return true;
-	} else {
-		RecienAbierto = true;
-		return false;
-	}
-		
+        if (acciones.MensajeGoogle()) {
+            return true;
+        } else {
+            RecienAbierto = true;
+            return false;
+        }
+
     }
+
+    private void programaAbierto() {
+        GoogleAbierto = ConfirmarGoogleAbierto();
+        if (GoogleAbierto && RecienAbierto) {
+            prueba = new Consejos(Maky.this);
+            prueba.confirmar();
+            RecienAbierto = false;
+            this.setVisible(false);
+        }
+
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -224,14 +271,12 @@ public class Maky extends javax.swing.JFrame{
             }
         });
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 
-   
 }

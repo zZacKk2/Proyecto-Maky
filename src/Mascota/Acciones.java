@@ -11,9 +11,7 @@ package Mascota;
 public interface Acciones {
     	public void AbrirCalculadora();
 	public void AbrirBlocNotas();
-	public void MostrarFecha();
-	public void MostrarHora();
-	public void MostrarClima();
+        public void AbrirNavegador();
 	public boolean MensajeGoogle();
 	public void MensajeWord();
 	public void mostrarCalendario();
