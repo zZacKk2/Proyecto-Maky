@@ -106,7 +106,7 @@ public class Maky extends javax.swing.JFrame {
             }
 
         };
-        tiempo.schedule(tarea, 0, 2000); // cada verifique cada 8 segundos si se abre word o no	
+        tiempo.schedule(tarea, 0, 5000); // cada verifique cada 8 segundos si se abre word o no	
     }
 
     /**
